@@ -5,7 +5,6 @@ Library           RequestsLibrary
 Library           Collections
 Library           String
 Library           OperatingSystem
-Library           file_service.py
 
 *** Variables ***
 ${BASE_URL}       https://postman-echo.com/
