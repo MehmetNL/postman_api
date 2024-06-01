@@ -1,5 +1,3 @@
-Language: Dutch
-
 *** Settings ***
 Library           RequestsLibrary
 Library           Collections
@@ -7,20 +5,25 @@ Library           String
 Library           OperatingSystem
 
 *** Variables ***
-${BASE_URL}       https://postman-echo.com/
+
+
 
 *** Test Cases ***
-Get Yunus auto info
-    ${params}=    Create Dictionary    kenteken=71KRX7
-    ${response}=    GET     https://opendata.rdw.nl/resource/m9d7-ebf2.json     params=${params}
-    ${json_string}=    Convert To String    ${response.json()}    # Convert list to string
-    write to file       ${response.json()}
-    ${file_data}=   read file
-    Log    ${file_data}
 
-    Should Be Equal As Strings    ${json_string}    ${file_data}
-    Should Be Equal As Strings    ${response.json()[0]["merk"]}    MAZDA
+Merk moet uitkomen op PEUGEOT
+    ${params}=    Create Dictionary    kenteken=P300BB
+    ${response}=    Get     https://opendata.rdw.nl/resource/m9d7-ebf2.json     params=${params}
+    ${json_response}=    Evaluate    json.loads($response.content.decode('utf-8'))
+    Should Be Equal As Strings    ${json_response[0]["merk"]}    PEUGEOT
 
-Get auto's info
-    ${response}=    Get From Dictionary     https://opendata.rdw.nl/resource/m9d7-ebf2.json    key
-    Should Be Equal As Strings    ${response.json()[0]["merk"]}    CITROEN
+
+Merk moet uitkomen op BMW met 6 Cilinder
+    ${params}=    Create Dictionary    kenteken=02LJNX
+    ${response}=    Get     https://opendata.rdw.nl/resource/m9d7-ebf2.json     params=${params}
+    ${json_response}=    Evaluate    json.loads($response.content.decode('utf-8'))
+    Should Be Equal As Strings    ${json_response[0]["merk"]}    BMW
+    Should Be Equal As Strings    ${json_response[0]["aantal_cilinders"]}    6
+
+
+
+
