@@ -31,4 +31,4 @@ jobs:
     - name: Run Robot Framework tests
       run: |
         # Run Robot Framework test located in the main directory
-        robot api.robot
+        robot tests/rdw_test.robot
