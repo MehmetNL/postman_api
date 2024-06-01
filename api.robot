@@ -17,7 +17,7 @@ Get Yunus auto info
     write to file       ${response.json()}
     ${file_data}=   read file
     Log    ${file_data}
-#    Append To File    Temp\\test.txt    ${json_string}
+
     Should Be Equal As Strings    ${json_string}    ${file_data}
     Should Be Equal As Strings    ${response.json()[0]["merk"]}    MAZDA
 
